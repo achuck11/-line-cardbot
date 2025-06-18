@@ -5,11 +5,9 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from yuyutei_scraper import search_by_id_or_name
-
 import os
 
 app = Flask(__name__)
-
 line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
 handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
 
@@ -17,7 +15,6 @@ handler = WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
-
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
